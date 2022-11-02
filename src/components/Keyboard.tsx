@@ -34,7 +34,7 @@ const KEYS_EN = [
     "w",
     "x",
     "y",
-    "z",
+    "z"
 ];
 
 const KEYS_ES = [
@@ -64,7 +64,7 @@ const KEYS_ES = [
     "w",
     "x",
     "y",
-    "z",
+    "z"
 ];
 
 const Keyboard = ({
@@ -72,7 +72,7 @@ const Keyboard = ({
     activeLetters,
     inactiveLetters,
     addGuessedLetter,
-    language,
+    language
 }: KeyboardProps) => {
     const getKeyLanguage = () => {
         return language === "en" ? KEYS_EN : KEYS_ES;
@@ -82,7 +82,7 @@ const Keyboard = ({
             style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(75px, 1fr))",
-                gap: ".5rem",
+                gap: ".5rem"
             }}
         >
             {getKeyLanguage().map((key) => {

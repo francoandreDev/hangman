@@ -1,42 +1,52 @@
 import styles from "../styles/ChangeLanguage.module.css";
+import BritishFlag from "./flags/British.flag";
+import SpainFlag from "./flags/Spain.flag";
 
 type ChangeLanguageProp = {
     language: string;
     setLanguage: (language: string) => void;
 };
 
-const ChangeLanguage = ({ language, setLanguage }: ChangeLanguageProp) => {
-    const toggleLanguage = () => {
+const ChangeLanguage = ({
+    language,
+    setLanguage,
+}: ChangeLanguageProp) => {
+
+    const toggleLanguage = (language: string): void => {
         setLanguage(language === "en" ? "es" : "en");
     };
+
     return (
         <div
             style={{
                 position: "absolute",
-                top: "50px",
+                top: "100px",
                 left: "50px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
                 gap: "2rem",
-                textAlign: "justify",
+                textAlign: "justify"
             }}
         >
-            <div
-                className={`${
-                    language === "es" ? styles.british : styles.spain
-                } ${styles.btn}`}
+            <span
+                style={{
+                    position: "absolute",
+                    top: "-45px",
+                    textAlign: "center",
+                    fontSize: "1.2rem"
+                }}
             >
-                {language === "en" ? "Español" : "English"}
-                {language === "es" ? (
-                    <div>
-                        <span></span>
-                    </div>
-                ) : null}
-            </div>
+                {language === "en"
+                    ? "Change language to spanish "
+                    : "Cambiar idioma a inglés "}
+            </span>
+
+            {language === "en" ? <BritishFlag /> : <SpainFlag />}
+
             <button
-                onClick={() => toggleLanguage()}
+                onClick={() => toggleLanguage(language)}
                 style={{
                     width: "100%",
                     height: "100%",
@@ -45,14 +55,14 @@ const ChangeLanguage = ({ language, setLanguage }: ChangeLanguageProp) => {
                     position: "absolute",
                     zIndex: 1,
                     display: "flex",
-                    alignItems: "center",
+                    alignItems: "center"
                 }}
                 className={`${styles["text-flag"]}`}
             >
-                <p>
+                <p style={{ fontSize: "1rem" }}>
                     {language === "es"
-                        ? "Press the flag to change the game language"
-                        : "Presiona la bandera para cambiar el idioma del juego"}
+                        ? "Press the flag to change the game language and press Enter"
+                        : "Presiona la bandera para cambiar el idioma del juego y presiona enter"}
                 </p>
             </button>
         </div>

@@ -1,35 +1,35 @@
 import { useCallback, useEffect, useState } from "react";
-import wordsEs from "./wordList.json";
-import wordsEn from "./palabrasLista.json";
+import wordsEnglish from "./wordList.json";
+import wordsSpanish from "./palabrasLista.json";
 import Keyboard from "./components/Keyboard";
 import HangmanWord from "./components/HangmanWord";
 import HangmanDrawing from "./components/HangmanDrawing";
 import ChangeLanguage from "./components/ChangeLanguage";
+import EndMessage from "./components/EndMessage";
+
+const getRandom = (list: string[]): number => {
+    return Math.floor(Math.random() * list.length);
+};
+const getWord = (list: string[]): string => {
+    return list[getRandom(list)];
+};
 
 function App() {
-    const [language, setLanguage] = useState<string>("es");
-
-    function getWord() {
-        return language === "en"
-            ? wordsEs[Math.floor(Math.random() * wordsEs.length)]
-            : wordsEn[Math.floor(Math.random() * wordsEn.length)];
-    }
-
-    const [wordToGuess, setWordToGuess] = useState(getWord);
-
+    const [language, setLanguage] = useState<string>("en");
+    const [wordToGuess, setWordToGuess] = useState<string>(
+        getWord(wordsEnglish)
+    );
     const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
-
-    const incorrectLetters = guessedLetters.filter(
+    const incorrectLetters: string[] = guessedLetters.filter(
         (letter) => !wordToGuess.includes(letter)
     );
-
-    const isLoser = incorrectLetters.length >= 6;
-    const isWinner = wordToGuess
+    const isLoser: boolean = incorrectLetters.length >= 6;
+    const isWinner: boolean = wordToGuess
         .split("")
         .every((letter) => guessedLetters.includes(letter));
 
     const addGuessedLetter = useCallback(
-        (letter: string) => {
+        (letter: string): void => {
             if (guessedLetters.includes(letter) || isLoser || isWinner) return;
             setGuessedLetters((currentLetters) => [...currentLetters, letter]);
         },
@@ -37,7 +37,7 @@ function App() {
     );
 
     useEffect(() => {
-        const handler = (e: KeyboardEvent) => {
+        const handler = (e: KeyboardEvent): void => {
             const key = e.key;
             if (!key.match(/^[a-z]$/)) return;
             e.preventDefault();
@@ -49,27 +49,25 @@ function App() {
         };
     }, [guessedLetters]);
 
-    const newWord = () => {
-        setGuessedLetters([]);
-        setWordToGuess(getWord());
-    }
+    const changeWord = (language: string): void => {
+        language === "en"
+            ? setWordToGuess(getWord(wordsEnglish))
+            : setWordToGuess(getWord(wordsSpanish));
+    };
 
     useEffect(() => {
-        const handler = (e: KeyboardEvent) => {
+        const handler = (e: KeyboardEvent): void => {
             const key = e.key;
             if (key !== "Enter") return;
             e.preventDefault();
-            newWord()
+            setGuessedLetters([]);
+            changeWord(language);
         };
         document.addEventListener("keypress", handler);
         return () => {
             document.removeEventListener("keypress", handler);
         };
-    }, []);
-
-    useEffect(()=>{
-        newWord()
-    },[language])
+    }, [language]);
 
     return (
         <div
@@ -79,14 +77,15 @@ function App() {
                 flexDirection: "column",
                 gap: "2rem",
                 margin: "0 auto",
-                alignItems: "center",
+                alignItems: "center"
             }}
         >
-            <ChangeLanguage language={language} setLanguage={setLanguage}/>
-            <div style={{ fontSize: "2rem", textAlign: "center" }}>
-                {isWinner && "Winner! - Press Enter to try again"}
-                {isLoser && "Nice try! - Press Enter to try again"}
-            </div>
+            <ChangeLanguage language={language} setLanguage={setLanguage} />
+            <EndMessage
+                isWinner={isWinner}
+                isLoser={isLoser}
+                language={language}
+            />
             <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
             <HangmanWord
                 reveal={isLoser}

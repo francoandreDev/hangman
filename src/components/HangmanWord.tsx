@@ -34,7 +34,7 @@ const HangmanWord = ({
                                         : "hidden",
                                 color:
                                     !guessedLetters.includes(letter) && reveal
-                                        ? "red"
+                                        ? "rgb(13,143,67)"
                                         : "black",
                             }}
                         >
