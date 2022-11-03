@@ -94,9 +94,13 @@ function App() {
     }, [maxScore]);
 
     useEffect(() => {
-        const maxScore = JSON.parse(localStorage.getItem("max-score") || "");
-        if (maxScore) {
-            setMaxScore(maxScore);
+        try {
+            const maxScore = JSON.parse(
+                localStorage.getItem("max-score") || ""
+            );
+            if (maxScore) setMaxScore(maxScore);
+        } catch (err) {
+            setMaxScore(0);
         }
     }, []);
 
