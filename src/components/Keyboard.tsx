@@ -111,7 +111,7 @@ const Keyboard = ({
                     setGuessedLetters([]);
                     changeWord(language);
                 }}
-                className={`${styles.btn}`}
+                className={`${styles.btn}`} id={`${styles["enter-btn"]}`}
                 style={{ minWidth: "fit-content", aspectRatio: "none" }}
             >
                 {"<┘"}

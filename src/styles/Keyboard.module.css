@@ -13,6 +13,15 @@
         cursor: pointer;
         color: black;
     }
+    #enter-btn {
+        display: none;
+    }
+
+    @media only screen and (max-width: 800px) {
+        #enter-btn {
+            display: block;
+        }
+    }
 }
 
 @layer state {

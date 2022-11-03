@@ -11,8 +11,14 @@ import { useCallback, useEffect, useState } from "react";
 const getRandom = (list: string[]): number => {
     return Math.floor(Math.random() * list.length);
 };
+
+const normalizeWord = (word: string): string => {
+    const Accents:object = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};
+	return word.split('').map( (letter) => Accents[letter as keyof object] || letter).join('').toString().toLowerCase();
+}
+
 const getWord = (list: string[]): string => {
-    return list[getRandom(list)];
+    return normalizeWord(list[getRandom(list)]);
 };
 
 function App() {
