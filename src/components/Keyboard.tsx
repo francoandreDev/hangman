@@ -90,12 +90,12 @@ const Keyboard = ({
                 const isInactive = inactiveLetters.includes(key);
                 return (
                     <button
+                        key={key+language}
                         onClick={() => addGuessedLetter(key)}
                         className={`${styles.btn} ${
                             isActive ? styles.active : null
                         } ${isInactive ? styles.inactive : null}`}
                         disabled={isInactive || isActive || disabled}
-                        key={key}
                     >
                         {key}
                     </button>

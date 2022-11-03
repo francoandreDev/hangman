@@ -7,29 +7,13 @@ type ChangeLanguageProp = {
     setLanguage: (language: string) => void;
 };
 
-const ChangeLanguage = ({
-    language,
-    setLanguage,
-}: ChangeLanguageProp) => {
-
+const ChangeLanguage = ({ language, setLanguage }: ChangeLanguageProp) => {
     const toggleLanguage = (language: string): void => {
         setLanguage(language === "en" ? "es" : "en");
     };
 
     return (
-        <div
-            style={{
-                position: "absolute",
-                top: "100px",
-                left: "50px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "2rem",
-                textAlign: "justify"
-            }}
-        >
+        <div className={`${styles["main-container-position"]}`}>
             <span
                 style={{
                     position: "absolute",

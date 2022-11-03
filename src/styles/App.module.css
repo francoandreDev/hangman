@@ -1,0 +1,20 @@
+@layer desktop, mobile;
+
+@layer desktop {
+    .parent-div {
+        position: relative;
+    }
+    .input-mobile {
+        display: none;
+    }
+}
+
+@layer mobile {
+    @media only screen and (max-width: 800px) {
+        .input-mobile {
+            display: block;
+            position: absolute;
+            top: 0;
+        }
+    }
+}

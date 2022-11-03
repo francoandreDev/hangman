@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef, useLayoutEffect } from "react";
 import wordsEnglish from "./wordList.json";
 import wordsSpanish from "./palabrasLista.json";
 import Keyboard from "./components/Keyboard";
@@ -6,6 +6,7 @@ import HangmanWord from "./components/HangmanWord";
 import HangmanDrawing from "./components/HangmanDrawing";
 import ChangeLanguage from "./components/ChangeLanguage";
 import EndMessage from "./components/EndMessage";
+import styles from "./styles/App.module.css";
 
 const getRandom = (list: string[]): number => {
     return Math.floor(Math.random() * list.length);
@@ -69,8 +70,26 @@ function App() {
         };
     }, [language]);
 
+    const inputMobileRef = useRef<HTMLInputElement>(null)
+
+    useLayoutEffect(() => {
+        inputMobileRef.current?.focus()
+    }, [inputMobileRef?.current])
+
+    useEffect(()=>{
+        const inputFocus = () => {
+            if(window.innerWidth>800) return
+            inputMobileRef.current?.focus()
+        }
+        window.addEventListener("click", inputFocus)
+        return ()=>{
+            window.removeEventListener("click", inputFocus)
+        }
+    }, [])
+
     return (
         <div
+            className={`${styles["parent-div"]}`}
             style={{
                 display: "flex",
                 maxWidth: "800px",
@@ -80,6 +99,7 @@ function App() {
                 alignItems: "center"
             }}
         >
+            <input type="text" className={`${styles["input-mobile"]}`} ref={inputMobileRef}/>
             <ChangeLanguage language={language} setLanguage={setLanguage} />
             <EndMessage
                 isWinner={isWinner}
