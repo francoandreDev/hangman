@@ -12,11 +12,8 @@ const NewGame = ({ language, setGuessedLetters, changeWord }: NewGameProps) => {
         changeWord(language);
     };
     return (
-        <button
-            onClick={() => newGame()}
-            id={`${styles["new-game"]}`}
-        >
-            New Game
+        <button onClick={() => newGame()} id={`${styles["new-game"]}`}>
+            {language === "en" ? "New Game" : "Nuevo Juego"}
         </button>
     );
 };
