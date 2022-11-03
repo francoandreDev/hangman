@@ -6,6 +6,8 @@ type KeyboardProps = {
     inactiveLetters: string[];
     addGuessedLetter: (letter: string) => void;
     language: string;
+    setGuessedLetters: (letter:string[])=>void;
+    changeWord: (language: string)=>void;
 };
 
 const KEYS_EN = [
@@ -72,7 +74,9 @@ const Keyboard = ({
     activeLetters,
     inactiveLetters,
     addGuessedLetter,
-    language
+    language,
+    setGuessedLetters,
+    changeWord
 }: KeyboardProps) => {
     const getKeyLanguage = () => {
         return language === "en" ? KEYS_EN : KEYS_ES;
@@ -90,7 +94,7 @@ const Keyboard = ({
                 const isInactive = inactiveLetters.includes(key);
                 return (
                     <button
-                        key={key+language}
+                        key={key}
                         onClick={() => addGuessedLetter(key)}
                         className={`${styles.btn} ${
                             isActive ? styles.active : null
@@ -101,6 +105,17 @@ const Keyboard = ({
                     </button>
                 );
             })}
+            <button
+                key={"Enter"}
+                onClick={() => {
+                    setGuessedLetters([]);
+                    changeWord(language);
+                }}
+                className={`${styles.btn}`}
+                style={{ minWidth: "fit-content", aspectRatio: "none" }}
+            >
+                {"<┘"}
+            </button>
         </div>
     );
 };

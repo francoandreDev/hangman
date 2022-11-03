@@ -45,8 +45,8 @@ const ChangeLanguage = ({ language, setLanguage }: ChangeLanguageProp) => {
             >
                 <p style={{ fontSize: "1rem" }}>
                     {language === "es"
-                        ? "Press the flag to change the game language and press Enter"
-                        : "Presiona la bandera para cambiar el idioma del juego y presiona enter"}
+                        ? "Press the flag to change the game language and press enter (<┘)"
+                        : "Presiona la bandera para cambiar el idioma del juego y presiona enter (<┘)"}
                 </p>
             </button>
         </div>
