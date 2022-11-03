@@ -5,11 +5,20 @@ import SpainFlag from "./flags/Spain.flag";
 type ChangeLanguageProp = {
     language: string;
     setLanguage: (language: string) => void;
+    setGuessedLetters: (letter: string[]) => void;
+    changeWord: (language: string) => void;
 };
 
-const ChangeLanguage = ({ language, setLanguage }: ChangeLanguageProp) => {
+const ChangeLanguage = ({
+    language,
+    setLanguage,
+    setGuessedLetters,
+    changeWord
+}: ChangeLanguageProp) => {
     const toggleLanguage = (language: string): void => {
         setLanguage(language === "en" ? "es" : "en");
+        setGuessedLetters([]);
+        changeWord(language === "en" ? "es" : "en");
     };
 
     return (
@@ -45,8 +54,8 @@ const ChangeLanguage = ({ language, setLanguage }: ChangeLanguageProp) => {
             >
                 <p style={{ fontSize: "1rem" }}>
                     {language === "es"
-                        ? "Press the flag to change the game language and press enter (<┘)"
-                        : "Presiona la bandera para cambiar el idioma del juego y presiona enter (<┘)"}
+                        ? "Press the flag to change the game language"
+                        : "Presiona la bandera para cambiar el idioma del juego"}
                 </p>
             </button>
         </div>

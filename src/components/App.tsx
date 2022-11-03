@@ -13,9 +13,25 @@ const getRandom = (list: string[]): number => {
 };
 
 const normalizeWord = (word: string): string => {
-    const Accents:object = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};
-	return word.split('').map( (letter) => Accents[letter as keyof object] || letter).join('').toString().toLowerCase();
-}
+    const Accents: object = {
+        á: "a",
+        é: "e",
+        í: "i",
+        ó: "o",
+        ú: "u",
+        Á: "A",
+        É: "E",
+        Í: "I",
+        Ó: "O",
+        Ú: "U"
+    };
+    return word
+        .split("")
+        .map((letter) => Accents[letter as keyof object] || letter)
+        .join("")
+        .toString()
+        .toLowerCase();
+};
 
 const getWord = (list: string[]): string => {
     return normalizeWord(list[getRandom(list)]);
@@ -88,7 +104,12 @@ function App() {
                 alignItems: "center"
             }}
         >
-            <ChangeLanguage language={language} setLanguage={setLanguage} />
+            <ChangeLanguage
+                language={language}
+                setLanguage={setLanguage}
+                setGuessedLetters={setGuessedLetters}
+                changeWord={changeWord}
+            />
             <EndMessage
                 isWinner={isWinner}
                 isLoser={isLoser}
