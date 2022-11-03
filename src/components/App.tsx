@@ -7,6 +7,7 @@ import styles from "../styles/App.module.css";
 import wordsEnglish from "../wordList.json";
 import wordsSpanish from "../palabrasLista.json";
 import { useCallback, useEffect, useState } from "react";
+import NewGame from "./NewGame";
 
 const getRandom = (list: string[]): number => {
     return Math.floor(Math.random() * list.length);
@@ -53,11 +54,17 @@ function App() {
 
     const addGuessedLetter = useCallback(
         (letter: string): void => {
-            if (guessedLetters.includes(letter) || isLoser || isWinner) return;
+            if (guessedLetters.includes(letter) || isLoser || isWinner) {
+                return;
+            }
             setGuessedLetters((currentLetters) => [...currentLetters, letter]);
         },
         [guessedLetters, isWinner, isLoser]
     );
+
+    useEffect(() => {
+        setScore((guessedLetters.length - incorrectLetters.length) * 100);
+    }, [guessedLetters, incorrectLetters]);
 
     useEffect(() => {
         const handler = (e: KeyboardEvent): void => {
@@ -77,6 +84,26 @@ function App() {
             ? setWordToGuess(getWord(wordsEnglish))
             : setWordToGuess(getWord(wordsSpanish));
     };
+
+    const [score, setScore] = useState<number>(0);
+    const [maxScore, setMaxScore] = useState<number>(0);
+
+    useEffect(() => {
+        if (maxScore !== 0)
+            localStorage.setItem("max-score", JSON.stringify(maxScore));
+    }, [maxScore]);
+
+    useEffect(() => {
+        const maxScore = JSON.parse(localStorage.getItem("max-score") || "");
+        if (maxScore) {
+            setMaxScore(maxScore);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (score > maxScore) setMaxScore(score);
+        setScore(0);
+    }, [wordToGuess]);
 
     useEffect(() => {
         const handler = (e: KeyboardEvent): void => {
@@ -104,6 +131,20 @@ function App() {
                 alignItems: "center"
             }}
         >
+            <section className={`${styles["scores"]}`}>
+                <span>
+                    {language === "en" ? "Score:" : "Puntaje:"} {score}
+                </span>
+                <span>
+                    {language === "en" ? "Best score:" : "Mejor puntaje:"}{" "}
+                    {maxScore}
+                </span>
+            </section>
+            <NewGame
+                language={language}
+                setGuessedLetters={setGuessedLetters}
+                changeWord={changeWord}
+            />
             <ChangeLanguage
                 language={language}
                 setLanguage={setLanguage}

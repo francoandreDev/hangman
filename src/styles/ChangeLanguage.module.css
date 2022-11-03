@@ -13,7 +13,7 @@
 @layer basic-flag {
     .main-container-position {
         position: absolute;
-        top: 100px;
+        top: 280px;
         left: 50px;
         display: flex;
         flex-direction: column;
@@ -25,6 +25,7 @@
     @media only screen and (max-width: 850px) {
         .main-container-position {
             position: relative;
+            top: 100px;
             left: 0;
             margin-bottom: 100px;
         }

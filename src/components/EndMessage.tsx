@@ -6,7 +6,7 @@ type EndMessageProps = {
 
 const EndMessage = ({isWinner, isLoser, language}: EndMessageProps) => {
     return (
-        <div style={{ fontSize: "2rem", textAlign: "center" }}>
+        <div style={{ fontSize: "2rem", textAlign: "center"}}>
                 {isWinner &&
                     (language === "en"
                         ? "Winner! - Press Enter to try again"

@@ -1,21 +1,10 @@
-@layer desktop, mobile;
-
-@layer desktop {
-    .parent-div {
-        position: relative;
-    }
-    .input-mobile {
-        display: none;
-    }
+.parent-div {
+    position: relative;
 }
 
-@layer mobile {
-    @media only screen and (max-width: 800px) {
-        .input-mobile {
-            display: block;
-            position: absolute;
-            top: 0;
-            opacity: 1;
-        }
-    }
+.scores {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
 }

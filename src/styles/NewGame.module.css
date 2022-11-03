@@ -1,0 +1,64 @@
+@layer desktop, mobile;
+
+@layer desktop {
+    #new-game {
+        background-color: hsl(153, 100%, 35%);
+        border: none;
+        color: black;
+        padding: 0.5rem 1rem;
+        font-size: 1.5em;
+        position: absolute;
+        top: 9rem;
+        left: 6rem;
+        border-radius: 1em;
+        -webkit-border-radius: 1em;
+        -moz-border-radius: 1em;
+        -ms-border-radius: 1em;
+        -o-border-radius: 1em;
+        cursor: pointer;
+        margin-bottom: 5rem;
+    }
+}
+
+@layer mobile {
+    @media only screen and (max-width: 800px) {
+        #new-game {
+            position: relative;
+            top: 2rem;
+            left: 0;
+            margin-bottom: 0;
+        }
+    }
+}
+
+#new-game:hover {
+    animation: heart 1s ease 2 1s;
+    -webkit-animation: heart 1s ease 2 1s;
+}
+
+@keyframes heart {
+    0% {
+        scale: 0.9
+    }
+    50% {
+        scale: 1
+    }
+    100% {
+        scale: 0.9
+    }
+}
+
+#new-game:active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.1);
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    -webkit-border-radius: inherit;
+    -moz-border-radius: inherit;
+    -ms-border-radius: inherit;
+    -o-border-radius: inherit;
+}

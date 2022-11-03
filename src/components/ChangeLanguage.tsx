@@ -32,8 +32,8 @@ const ChangeLanguage = ({
                 }}
             >
                 {language === "en"
-                    ? "Change language to spanish "
-                    : "Cambiar idioma a inglés "}
+                    ? "Cambiar idioma a español "
+                    : "Change language to english "}
             </span>
 
             {language === "en" ? <BritishFlag /> : <SpainFlag />}
@@ -53,7 +53,7 @@ const ChangeLanguage = ({
                 className={`${styles["text-flag"]}`}
             >
                 <p style={{ fontSize: "1rem" }}>
-                    {language === "es"
+                    {language === "en"
                         ? "Press the flag to change the game language"
                         : "Presiona la bandera para cambiar el idioma del juego"}
                 </p>
